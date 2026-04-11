@@ -11,15 +11,15 @@ elif [[ "$KVER" == "6.1" ]]; then
   RELEASE="v0.1"
 fi
 
-KERNEL_NAME="OtagKernel"
-USER="eraselk"
-HOST="gacorprjkt"
-TIMEZONE="Asia/Makassar"
-ANYKERNEL_REPO="https://github.com/linastorvaldz/AnyKernel3"
+KERNEL_NAME="DisscussionVerse+"
+USER="nathan"
+HOST="nx"
+TIMEZONE="Asia/Jakarta"
+ANYKERNEL_REPO="https://github.com/imnathanzero/AK3-GKI"
 ANYKERNEL_BRANCH="master"
 
 if [[ "$KVER" == "5.10" ]]; then
-  KERNEL_DEFCONFIG="otag_defconfig"
+  KERNEL_DEFCONFIG="gki_defconfig"
 else
   KERNEL_DEFCONFIG="quartix_defconfig"
 fi
@@ -31,8 +31,8 @@ elif [[ "$KVER" == "6.1" ]]; then
   KERNEL_REPO="https://github.com/linastorvaldz/kernel-android14-6.1"
   KERNEL_BRANCH="android14-6.1-lts"
 elif [[ "$KVER" == "5.10" ]]; then
-  KERNEL_REPO="https://github.com/linastorvaldz/kernel-android12-5.10"
-  KERNEL_BRANCH="rebase"
+  KERNEL_REPO="https://github.com/nathanzerogarage/android_kernel_common_android12-5.10"
+  KERNEL_BRANCH="dv"
 fi
 
 DEFCONFIG_TO_MERGE=""
