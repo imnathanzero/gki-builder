@@ -53,7 +53,7 @@ trap 'error "Failed at line $LINENO [$BASH_COMMAND]"' ERR
 source "$WORKDIR/functions.sh"
 
 # Set timezone
-sudo timedatectl set-timezone "$TIMEZONE" || export TZ="$TIMEZONE"
+# sudo timedatectl set-timezone "$TIMEZONE" || export TZ="$TIMEZONE"
 
 # Clone kernel source
 log "Cloning kernel source from $(simplify_gh_url "$KERNEL_REPO")"
