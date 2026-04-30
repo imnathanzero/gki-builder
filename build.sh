@@ -186,7 +186,7 @@ if [[ $TODO == "kernel" ]]; then
   else
     SUFFIX="$RELEASE"
   fi
-  config --set-str CONFIG_LOCALVERSION "-$KERNEL_NAME/$SUFFIX"
+  config --set-str CONFIG_LOCALVERSION "-$KERNEL_NAME"
   config --disable CONFIG_LOCALVERSION_AUTO
   sed -i 's/echo "+"/# echo "+"/g' scripts/setlocalversion
 fi
