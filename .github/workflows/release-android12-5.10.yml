@@ -22,6 +22,9 @@ jobs:
       KERNEL_VERSION: "5.10"
 
   release:
+    permissions:
+      contents: write
+
     name: Create Unified Release
     needs: build
     runs-on: ubuntu-latest
@@ -71,31 +74,24 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-            # Get the latest tag, handle case where no tags exist
-            LATEST_TAG=$(gh api repos/$RELEASE_REPO/tags --jq '.[0].name' 2>/dev/null || echo "")
-
-            # Handle case when $LATEST_TAG doesn't contain $KERNEL_NAME or is empty
-            if [[ -z "$LATEST_TAG" ]] || ! echo "$LATEST_TAG" | grep -q "$KERNEL_NAME"; then
-                RELEASE_TAG="$KERNEL_NAME-r1"
-            else
-                RELEASE_TAG="$(echo "$LATEST_TAG" | awk -F'-r' '{suffix=$2; if (!suffix) suffix=0; suffix++; printf "%s-r%d", $1, suffix}')"
-            fi
+            RELEASE_TAG="$KERNEL_NAME-$RELEASE-$KVER"
 
             echo "Release tag: $RELEASE_TAG"
             echo "RELEASE_TAG=$RELEASE_TAG" >> $GITHUB_ENV
 
       - name: Upload All Builds to release repo
-        uses: softprops/action-gh-release@v2
-        with:
-          repository: ${{ env.RELEASE_REPO }}
-          name: ${{ env.RELEASE_TAG }}
-          tag_name: ${{ env.RELEASE_TAG }}
-          prerelease: true
-          files: release_files/**/*
-          body: |
-            ### 📢 ${{ env.RELEASE_TAG }} Builds
-            -> Linux ${{ env.LINUX_VERSION }} (android12-5.10-lts)
-            -> SUSFS ඞ ${{ env.SUSFS_VERSION }}
+        run: |
+          sed -i "s/kirnal/$KERNEL_NAME/g" release.md
+          sed -i "s/release/$RELEASE/g" release.md
+          sed -i "s/kver/$KVER/g" release.md
+          sed -i "s/linux_version/$LINUX_VERSION/g" release.md
+          sed -i "s/susver/$SUSFS_VERSION/g" release.md
+
+          gh release create "$RELEASE_TAG" \
+            --repo "$RELEASE_REPO" \
+            --title "$RELEASE $KVER" \
+            --notes-file "release.md" \
+            release_files/**/*
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
