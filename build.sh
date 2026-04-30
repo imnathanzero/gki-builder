@@ -11,12 +11,12 @@ elif [[ "$KVER" == "6.1" ]]; then
   RELEASE="v0.1"
 fi
 
-KERNEL_NAME="DisscussionVerse+"
+KERNEL_NAME="HayaseYuuka-V4.0-LXC-le9uo-BORE-MillenniumTeam+"
 USER="nathan"
 HOST="nx"
 TIMEZONE="Asia/Jakarta"
-ANYKERNEL_REPO="https://github.com/imnathanzero/AK3-GKI"
-ANYKERNEL_BRANCH="master"
+ANYKERNEL_REPO="https://github.com/MillenniumOSS/AnyKernel3.git"
+ANYKERNEL_BRANCH="mahiru5.10"
 
 if [[ "$KVER" == "5.10" ]]; then
   KERNEL_DEFCONFIG="gki_defconfig"
@@ -31,8 +31,8 @@ elif [[ "$KVER" == "6.1" ]]; then
   KERNEL_REPO="https://github.com/linastorvaldz/kernel-android14-6.1"
   KERNEL_BRANCH="android14-6.1-lts"
 elif [[ "$KVER" == "5.10" ]]; then
-  KERNEL_REPO="https://github.com/nathanzerogarage/android_kernel_common_android12-5.10"
-  KERNEL_BRANCH="dv"
+  KERNEL_REPO="https://github.com/imnathanzero/android_kernel_common_android12-5.10-millennium"
+  KERNEL_BRANCH="yuuka-lxc"
 fi
 
 DEFCONFIG_TO_MERGE=""
