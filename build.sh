@@ -11,6 +11,8 @@ TIMEZONE="Asia/Jakarta"
 ANYKERNEL_REPO="https://github.com/MillenniumOSS/AnyKernel3.git"
 ANYKERNEL_BRANCH="mahiru5.10"
 
+KERNEL_PATCHES="$WORKDIR/kernel-patches"
+
 KERNEL_DEFCONFIG="gki_defconfig"
 KERNEL_REPO="https://github.com/imnathanzero/android_kernel_common_android12-5.10-millennium"
 KERNEL_BRANCH="yuuka-lxc"
@@ -87,6 +89,7 @@ COMPILER_STRING=$(clang --version | head -n 1 | sed 's/(https..*//' | sed 's/ ve
 cd "$KSRC"
 
 ## KernelSU setup
+if ksu_included; then
 # Remove existing KernelSU drivers
   for KSU_PATH in drivers/staging/kernelsu drivers/kernelsu KernelSU KernelSU-Next; do
     if [[ -d $KSU_PATH ]]; then
@@ -102,6 +105,12 @@ cd "$KSRC"
 
   install_ksu 'pershoot/KernelSU-Next' 'dev-susfs'
   config --enable CONFIG_KSU
+  
+  
+  cd KernelSU-Next
+  patch -p1 < "$KERNEL_PATCHES/ksu/ksun-add-more-managers-support.patch"
+  cd "$OLDPWD"
+fi
 
 # SUSFS
 if susfs_included; then
@@ -115,8 +124,12 @@ if susfs_included; then
   cp -R "$SUSFS_PATCHES"/fs/* ./fs
   cp -R "$SUSFS_PATCHES"/include/* ./include
   patch -p1 < "$SUSFS_PATCHES/50_add_susfs_in_${SUSFS_BRANCH}.patch" || true
-  pershoot_susfs '3a288f01c379be4454ecaa0cb5d2d2494ba719e6'
-  pershoot_susfs '98b3fc2b178ec638d968966771fbf82b5cbb72b1'
+  # pershoot susfs patch start
+  cd "$SUSFS_DIR"
+  patch -p1 < "$KERNEL_PATCHES/susfs/allow-core-to-be-built-with-no-features.patch"
+  patch -p1 < "$KERNEL_PATCHES/susfs/implement-susfs-and-toolkit-coexistence.patch"
+  cd "$OLDPWD"
+  # pershoot susfs patch end
   SUSFS_VERSION=$(grep -E '^#define SUSFS_VERSION' ./include/linux/susfs.h | cut -d' ' -f3 | sed 's/"//g')
   config --enable CONFIG_KSU_SUSFS
 else

@@ -95,15 +95,3 @@ EOF
   upload_file "$WORKDIR/build.log"
   exit 1
 }
-
-# apply pershoot susfs patch
-pershoot_susfs() {
-  local f=$(mktemp)
-  local repo="https://gitlab.com/pershoot/susfs4ksu"
-  local ret
-
-  curl -s "$repo/commit/$1".patch | patch -p1
-  ret=$?
-  rm -f $f
-  return $ret
-}
