@@ -17,7 +17,6 @@ on:
         options:
           - "VNL"
           - "KSU"
-          - "KSUS"
 
 env:
   MAN_DISABLE: true

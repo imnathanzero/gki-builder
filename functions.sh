@@ -59,13 +59,6 @@ ksu_included() {
   return $?
 }
 
-# susfs_included() function
-# Type: bool
-susfs_included() {
-  [[ "$VARIANT" == "KSUS" ]]
-  return $?
-}
-
 # simplify_gh_url <github-repository-url>
 simplify_gh_url() {
   local URL="$1"

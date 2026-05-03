@@ -10,9 +10,6 @@ HOST="nx"
 TIMEZONE="Asia/Jakarta"
 ANYKERNEL_REPO="https://github.com/MillenniumOSS/AnyKernel3.git"
 ANYKERNEL_BRANCH="mahiru5.10"
-
-KERNEL_PATCHES="$WORKDIR/kernel-patches"
-
 KERNEL_DEFCONFIG="gki_defconfig"
 KERNEL_REPO="https://github.com/imnathanzero/android_kernel_common_android12-5.10-millennium"
 KERNEL_BRANCH="yuuka-lxc"
@@ -103,31 +100,8 @@ if ksu_included; then
     fi
   done
 
-  install_ksu 'pershoot/KernelSU-Next' 'dev-susfs'
+  install_ksu 'pershoot/KernelSU-Next' 'dev'
   config --enable CONFIG_KSU
-  
-  
-  cd KernelSU-Next
-  patch -p1 < "$KERNEL_PATCHES/ksu/ksun-add-more-managers-support.patch"
-  cd "$OLDPWD"
-fi
-
-# SUSFS
-if susfs_included; then
-  # Kernel-side
-  log "Applying kernel-side susfs patches"
-  SUSFS_DIR="$WORKDIR/susfs"
-  SUSFS_PATCHES="${SUSFS_DIR}/kernel_patches"
-  SUSFS_BRANCH=gki-android12-5.10
-
-  git clone --depth=1 -q https://gitlab.com/simonpunk/susfs4ksu -b "$SUSFS_BRANCH" "$SUSFS_DIR"
-  cp -R "$SUSFS_PATCHES"/fs/* ./fs
-  cp -R "$SUSFS_PATCHES"/include/* ./include
-  patch -p1 < "$SUSFS_PATCHES/50_add_susfs_in_${SUSFS_BRANCH}.patch" || true
-  SUSFS_VERSION=$(grep -E '^#define SUSFS_VERSION' ./include/linux/susfs.h | cut -d' ' -f3 | sed 's/"//g')
-  config --enable CONFIG_KSU_SUSFS
-else
-  config --disable CONFIG_KSU_SUSFS
 fi
 
 # set localversion
@@ -199,7 +173,6 @@ fi
 if [[ $LAST_BUILD == "true" ]] && [[ $STATUS != "BETA" ]]; then
   (
     echo "LINUX_VERSION=$LINUX_VERSION"
-    echo "SUSFS_VERSION=$(curl -s https://gitlab.com/simonpunk/susfs4ksu/raw/gki-android15-6.6/kernel_patches/include/linux/susfs.h | grep -E '^#define SUSFS_VERSION' | cut -d' ' -f3 | sed 's/"//g')"
     echo "KERNEL_NAME=$KERNEL_NAME"
     echo "KVER=$KVER"
   ) >> "$WORKDIR/artifacts/info.txt"
