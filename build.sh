@@ -124,12 +124,6 @@ if susfs_included; then
   cp -R "$SUSFS_PATCHES"/fs/* ./fs
   cp -R "$SUSFS_PATCHES"/include/* ./include
   patch -p1 < "$SUSFS_PATCHES/50_add_susfs_in_${SUSFS_BRANCH}.patch" || true
-  # pershoot susfs patch start
-  cd "$SUSFS_DIR"
-  patch -p1 < "$KERNEL_PATCHES/susfs/allow-core-to-be-built-with-no-features.patch"
-  patch -p1 < "$KERNEL_PATCHES/susfs/implement-susfs-and-toolkit-coexistence.patch"
-  cd "$OLDPWD"
-  # pershoot susfs patch end
   SUSFS_VERSION=$(grep -E '^#define SUSFS_VERSION' ./include/linux/susfs.h | cut -d' ' -f3 | sed 's/"//g')
   config --enable CONFIG_KSU_SUSFS
 else
