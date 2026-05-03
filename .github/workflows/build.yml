@@ -91,8 +91,11 @@ jobs:
             exit $ret
           fi
 
-#      - name: Install Dependencies
-#        run: pip3 install lxml --break-system-packages
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh bc bison flex libssl-dev libelf-dev dwarves cpio
+          pip install lxml
 
       - name: Run Build Script
         run: |

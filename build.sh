@@ -31,7 +31,7 @@ sudo timedatectl set-timezone "$TIMEZONE" || export TZ="$TIMEZONE"
 
 # Clone kernel source
 log "Cloning kernel source from $(simplify_gh_url "$KERNEL_REPO")"
-git clone --depth=1 "$KERNEL_REPO" -b "$KERNEL_BRANCH" "$KSRC"
+git clone -q --depth=1 "$KERNEL_REPO" -b "$KERNEL_BRANCH" "$KSRC"
 
 cd "$KSRC"
 LINUX_VERSION=$(make kernelversion)
@@ -44,7 +44,7 @@ CLANG_DIR="$WORKDIR/clang"
 CLANG_BIN="${CLANG_DIR}/bin"
 if [[ -z "$CLANG_BRANCH" ]]; then
   log "🔽 Downloading Clang..."
-  wget clang-archive "$CLANG_URL"
+  wget -qO clang-archive "$CLANG_URL"
   mkdir -p "$CLANG_DIR"
   case "$(basename $CLANG_URL)" in
     *.tar.* | *.tgz)
