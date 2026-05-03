@@ -102,8 +102,7 @@ pershoot_susfs() {
   local repo="https://gitlab.com/pershoot/susfs4ksu"
   local ret
 
-  curl -s "$repo/commit/$1".patch | sed 's|kernel_patches/||g' > $f
-  patch -p1 < $f
+  curl -s "$repo/commit/$1".patch | patch -p1
   ret=$?
   rm -f $f
   return $ret
