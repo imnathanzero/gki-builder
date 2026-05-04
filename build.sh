@@ -15,7 +15,7 @@ KERNEL_REPO="https://github.com/imnathanzero/android_kernel_common_android12-5.1
 KERNEL_BRANCH="yuuka-lxc"
 
 CLANG_URL="https://github.com/LineageOS/android_prebuilts_clang_kernel_linux-x86_clang-r416183b/archive/refs/heads/lineage-20.0.tar.gz"
-AK3_ZIP_NAME="$KERNEL_NAME-KVER-VARIANT.zip"
+AK3_ZIP_NAME="$KERNEL_NAME-$KVER-$VARIANT-$BUILD_DATE.zip"
 OUTDIR="$WORKDIR/out"
 KSRC="$WORKDIR/ksrc"
 
@@ -135,6 +135,15 @@ MAKE_ARGS=(
 KERNEL_IMAGE="$OUTDIR/arch/arm64/boot/Image"
 MODULE_SYMVERS="$OUTDIR/Module.symvers"
 KMI_CHECK="$WORKDIR/py/kmi-check-5.x.py"
+
+text=$(
+  cat << EOF
+*Kernel Version*: \`${LINUX_VERSION}\`
+*Build Date*: \`${KBUILD_BUILD_TIMESTAMP}\`
+*Variant*: \`${VARIANT}\`
+*Compiler*: \`${COMPILER_STRING}\`
+EOF
+)
 
 ## Build GKI
 log "Generating config..."
