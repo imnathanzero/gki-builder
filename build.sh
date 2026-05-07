@@ -4,7 +4,7 @@
 # Constants
 WORKDIR="$(pwd)"
 KVER="5.10"
-KERNEL_NAME="HayaseYuuka-V4.0-LXC-le9uo-BORE"
+KERNEL_NAME="HayaseYuuka-V4.1-LXC-le9uo-BORE"
 USER="nathan"
 HOST="nx"
 TIMEZONE="Asia/Jakarta"
