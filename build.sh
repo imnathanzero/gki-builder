@@ -4,7 +4,7 @@
 # Constants
 WORKDIR="$(pwd)"
 KVER="5.10"
-KERNEL_NAME="HayaseYuuka-V4.1-LXC-le9uo-BORE"
+KERNEL_NAME="HayaseYuuka-V4.1-LXC-le9uo"
 USER="nathan"
 HOST="nx"
 TIMEZONE="Asia/Jakarta"
@@ -100,7 +100,7 @@ if ksu_included; then
     fi
   done
 
-  install_ksu 'pershoot/KernelSU-Next' 'dev'
+  install_ksu 'KOWX712/KernelSU' 'master'
   config --enable CONFIG_KSU
 fi
 
