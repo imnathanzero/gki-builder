@@ -4,7 +4,7 @@
 # Constants
 WORKDIR="$(pwd)"
 KVER="5.10"
-KERNEL_NAME="HayaseYuuka-MillenniumTeam-android12-9-Droidspace"
+KERNEL_NAME="HayaseYuuka-MillenniumTeam-android12-9"
 USER="nathan"
 HOST="nx"
 TIMEZONE="Asia/Jakarta"
@@ -105,7 +105,7 @@ if ksu_included; then
 fi
 
 # set localversion
-config --set-str CONFIG_LOCALVERSION "-$KERNEL_NAME-MillenniumTeam+"
+config --set-str CONFIG_LOCALVERSION "-$KERNEL_NAME-Droidspace"
 config --disable CONFIG_LOCALVERSION_AUTO
 sed -i 's/echo "+"/# echo "+"/g' scripts/setlocalversion
 
