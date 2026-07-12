@@ -4,6 +4,7 @@
 # Constants
 WORKDIR="$(pwd)"
 KVER="5.10"
+KERNEL_NAME="HayaseYuuka-MillenniumTeam-android12-9-Droidspace"
 USER="nathan"
 HOST="nx"
 TIMEZONE="Asia/Jakarta"
@@ -102,6 +103,11 @@ if ksu_included; then
   install_ksu 'KOWX712/KernelSU' 'master'
   config --enable CONFIG_KSU
 fi
+
+# set localversion
+config --set-str CONFIG_LOCALVERSION "-$KERNEL_NAME-MillenniumTeam+"
+config --disable CONFIG_LOCALVERSION_AUTO
+sed -i 's/echo "+"/# echo "+"/g' scripts/setlocalversion
 
 # i want LTO Thin
 config --enable CONFIG_LTO
