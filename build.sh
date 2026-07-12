@@ -11,7 +11,7 @@ ANYKERNEL_REPO="https://github.com/MillenniumOSS/AnyKernel3.git"
 ANYKERNEL_BRANCH="mahiru5.10"
 KERNEL_DEFCONFIG="gki_defconfig"
 KERNEL_REPO="https://github.com/imnathanzero/android_kernel_common_android12-5.10-millennium"
-KERNEL_BRANCH="yuuka-lxc"
+KERNEL_BRANCH="yuuka-personal-droidspaces"
 
 CLANG_URL="https://github.com/LineageOS/android_prebuilts_clang_kernel_linux-x86_clang-r416183b/archive/refs/heads/lineage-20.0.tar.gz"
 AK3_ZIP_NAME="$KERNEL_NAME-$KVER-$VARIANT-$BUILD_DATE.zip"
