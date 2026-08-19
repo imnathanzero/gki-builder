@@ -100,7 +100,7 @@ if ksu_included; then
     fi
   done
 
-  install_ksu 'KOWX712/KernelSU' 'master'
+  install_ksu 'KernelSU-Next/KernelSU-Next' 'dev'
   config --enable CONFIG_KSU
 fi
 
