@@ -12,10 +12,10 @@ ANYKERNEL_REPO="https://github.com/MillenniumOSS/AnyKernel3.git"
 ANYKERNEL_BRANCH="mahiru5.10"
 KERNEL_DEFCONFIG="gki_defconfig"
 KERNEL_REPO="https://github.com/imnathanzero/android_kernel_common_millennium_android12-5.10"
-KERNEL_BRANCH="yuuka-main"
+KERNEL_BRANCH="yuuka-ntsync"
 
 CLANG_URL="https://github.com/LineageOS/android_prebuilts_clang_kernel_linux-x86_clang-r416183b/archive/refs/heads/lineage-20.0.tar.gz"
-AK3_ZIP_NAME="$KERNEL_NAME-$KVER-$VARIANT-$BUILD_DATE.zip"
+AK3_ZIP_NAME="$KERNEL_NAME-$KVER-$VARIANT.zip"
 OUTDIR="$WORKDIR/out"
 KSRC="$WORKDIR/ksrc"
 
@@ -105,7 +105,7 @@ if ksu_included; then
 fi
 
 # set localversion
-config --set-str CONFIG_LOCALVERSION "-$KERNEL_NAME-Droidspace"
+config --set-str CONFIG_LOCALVERSION "-$KERNEL_NAME-DSNT"
 config --disable CONFIG_LOCALVERSION_AUTO
 sed -i 's/echo "+"/# echo "+"/g' scripts/setlocalversion
 
